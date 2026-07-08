@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetVibe | Bem-estar para o seu melhor amigo</title>
+    <meta name="description" content="A PetVibe oferece serviços de banho, tosa, hotel, vacinação e consultas com carinho e tecnologia para o seu pet. Agende online!">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Link para o CSS Externo -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- 1. HEADER & NAVIGATION                    -->
+    <!-- ========================================== -->
+    <header class="main-header">
+        <div class="container header-container">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <span class="logo-icon"><i data-lucide="paw-print"></i></span>
+                <span class="logo-text">Pet<span class="logo-accent">Vibe</span></span>
+            </a>
+
+            <!-- Navegação Desktop -->
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-list">
+                    <li><a href="#inicio" class="nav-link active">Início</a></li>
+                    <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                    <li><a href="#servicos" class="nav-link">Serviços</a></li>
+                    <li><a href="#planos" class="nav-link">Planos</a></li>
+                    <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
+                    <li><a href="#contato" class="nav-link">Contato</a></li>
+                </ul>
+            </nav>
+
+            <!-- Ações e Menu Hambúrguer -->
+            <div class="header-actions">
+                <a href="#contato" class="btn btn-primary btn-header-cta">Agendar Agora</a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir Menu">
+                    <i data-lucide="menu" class="icon-menu"></i>
+                    <i data-lucide="x" class="icon-close hidden"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ========================================== -->
+        <!-- 2. HERO SECTION                            -->
+        <!-- ========================================== -->
+        <section id="inicio" class="hero-section">
+            <!-- Elementos Decorativos de Fundo -->
+            <div class="hero-bg-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
+            
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="badge-tag">
+                        <i data-lucide="sparkles"></i> <span>O amor que seu pet merece</span>
+                    </div>
+                    <h1 class="hero-title">O bem-estar do seu melhor amigo na velocidade do seu dia.</h1>
+                    <p class="hero-subtitle">Conectamos carinho e tecnologia para oferecer a melhor experiência em banho, tosa, saúde e hospedagem com agendamento 100% online.</p>
+                    
+                    <div class="hero-actions">
+                        <a href="#servicos" class="btn btn-primary">Agendar Banho & Tosa</a>
+                        <a href="#planos" class="btn btn-secondary">Conhecer Planos</a>
+                    </div>
+
+                    <!-- Recursos rápidos de confiança -->
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <i data-lucide="shield-check"></i>
+                            <span>Profissionais Certificados</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="clock"></i>
+                            <span>Atendimento Flexível</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-media">
+                    <div class="image-wrapper">
+                        <!-- Círculos decorativos de gradiente internos -->
+                        <div class="media-shape media-shape-1"></div>
+                        <div class="media-shape media-shape-2"></div>
+                        
+                        <!-- Imagem principal do pet -->
+                        <img src="assets/images/hero_pet.png" alt="Cachorro feliz e saudável usando uma bandana colorida" class="hero-image">
+                        
+                        <!-- Cards Flutuantes -->
+                        <div class="floating-card card-appointment">
+                            <span class="card-icon icon-success"><i data-lucide="check-circle-2"></i></span>
+                            <div class="card-info">
+                                <h5>Banho Agendado!</h5>
+                                <p>Hoje às 14:30</p>
+                            </div>
+                        </div>
+
+                        <div class="floating-card card-rating">
+                            <div class="stars-group">
+                                <i data-lucide="star" class="star-fill"></i>
+                                <span class="rating-value">4.9</span>
+                            </div>
+                            <p class="rating-count">(15k+ avaliações)</p>
+                        </div>
+
+                        <div class="floating-badge badge-heart">
+                            <i data-lucide="heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 3. SOBRE NÓS                               -->
+        <!-- ========================================== -->
+        <section id="sobre" class="about-section">
+            <div class="container about-container">
+                <div class="about-media">
+                    <div class="about-image-wrapper">
+                        <img src="assets/images/about_pets.png" alt="Gato e cachorro juntos demonstrando amizade e carinho" class="about-image">
+                    </div>
+                </div>
+                
+                <div class="about-content">
+                    <span class="section-tag">Quem Somos</span>
+                    <h2 class="section-title">Apaixonados por pets, movidos por excelência.</h2>
+                    <p class="section-description">A PetVibe nasceu do desejo de transformar a rotina de cuidados com animais de estimação. Entendemos que seu pet é parte da família, e por isso oferecemos um ecossistema completo focado em saúde, conforto e felicidade, com acompanhamento em tempo real e facilidade digital.</p>
+                    
+                    <!-- Indicadores de sucesso -->
+                    <div class="about-indicators">
+                        <div class="indicator-card">
+                            <span class="indicator-number">15k+</span>
+                            <span class="indicator-label">Pets Atendidos</span>
+                        </div>
+                        <div class="indicator-card">
+                            <span class="indicator-number">98%</span>
+                            <span class="indicator-label">Tutores Satisfeitos</span>
+                        </div>
+                        <div class="indicator-card">
+                            <span class="indicator-number">45+</span>
+                            <span class="indicator-label">Especialistas na Equipe</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. SERVIÇOS                                -->
+        <!-- ========================================== -->
+        <section id="servicos" class="services-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Nossos Serviços</span>
+                    <h2 class="section-title text-center">Tudo o que seu pet precisa em um só lugar</h2>
+                    <p class="section-subtitle text-center">Oferecemos uma gama completa de serviços desenvolvidos por especialistas com as melhores práticas de cuidado animal.</p>
+                </div>
+
+                <!-- Grid de Cards de Serviços -->
+                <div class="services-grid">
+                    
+                    <!-- 1. Banho -->
+                    <article class="service-card">
+                        <div class="service-icon-box">
+                            <i data-lucide="bath"></i>
+                        </div>
+                        <h3 class="service-card-title">Banho Completo</h3>
+                        <p class="service-card-text">Banhos terapêuticos com água morna purificada, shampoos hipoalergênicos e secagem silenciosa para evitar estresse.</p>
+                        <a href="#contato" class="service-link">Saber mais <i data-lucide="arrow-right"></i></a>
+                    </article>
+
+                    <!-- 2. Tosa -->
+                    <article class="service-card">
+                        <div class="service-icon-box">
+                            <i data-lucide="scissors"></i>
+                        </div>
+                        <h3 class="service-card-title">Tosa Higiênica & Estilo</h3>
+                        <p class="service-card-text">Tosa de raça, tesoura ou máquina adaptadas às necessidades do pelo do seu pet, executadas com calma e carinho.</p>
+                        <a href="#contato" class="service-link">Saber mais <i data-lucide="arrow-right"></i></a>
+                    </article>
+
+                    <!-- 3. Consultas -->
+                    <article class="service-card">
+                        <div class="service-icon-box">
+                            <i data-lucide="stethoscope"></i>
+                        </div>
+                        <h3 class="service-card-title">Consultas Veterinárias</h3>
+                        <p class="service-card-text">Clínicos gerais experientes prontos para cuidar do check-up anual, diagnóstico preventivo e saúde integrada do animal.</p>
+                        <a href="#contato" class="service-link">Saber mais <i data-lucide="arrow-right"></i></a>
+                    </article>
+
+                    <!-- 4. Vacinação -->
+                    <article class="service-card">
+                        <div class="service-icon-box">
+                            <i data-lucide="syringe"></i>
+                        </div>
+                        <h3 class="service-card-title">Vacinação Preventiva</h3>
+                        <p class="service-card-text">Aplicação de imunizantes e vacinas essenciais nacionais e importadas para manter cães e gatos sempre protegidos.</p>
+                        <a href="#contato" class="service-link">Saber mais <i data-lucide="arrow-right"></i></a>
+                    </article>
+
+                    <!-- 5. Hotel -->
+                    <article class="service-card">
+                        <div class="service-icon-box">
+                            <i data-lucide="home"></i>
+                        </div>
+                        <h3 class="service-card-title">Hotel & Daycare</h3>
+                        <p class="service-card-text">Hospedagem confortável com atividades recreativas, socialização monitorada, rotina de exercícios e câmeras de acompanhamento.</p>
+                        <a href="#contato" class="service-link">Saber mais <i data-lucide="arrow-right"></i></a>
+                    </article>
+
+                    <!-- 6. Loja -->
+                    <article class="service-card">
+                        <div class="service-icon-box">
+                            <i data-lucide="shopping-bag"></i>
+                        </div>
+                        <h3 class="service-card-title">Pet Shop & Boutique</h3>
+                        <p class="service-card-text">Curadoria de produtos premium, alimentos naturais, brinquedos interativos de alta durabilidade e acessórios exclusivos.</p>
+                        <a href="#contato" class="service-link">Saber mais <i data-lucide="arrow-right"></i></a>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- CLUB VIBE (Planos de Assinatura)           -->
+        <!-- ========================================== -->
+        <section id="planos" class="plans-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Clube Vibe</span>
+                    <h2 class="section-title text-center">Nossos Planos de Assinatura</h2>
+                    <p class="section-subtitle text-center">Garanta cuidados contínuos para o seu companheiro com descontos imperdíveis e benefícios exclusivos o ano todo.</p>
+                    
+                    <!-- Toggle de Planos Dinâmico -->
+                    <div class="plan-toggle-container">
+                        <span class="toggle-label billing-monthly active">Mensal</span>
+                        <button class="plan-toggle" id="planToggle" aria-label="Alternar faturamento mensal/anual">
+                            <span class="toggle-slider"></span>
+                        </button>
+                        <span class="toggle-label billing-yearly">Anual <span class="badge-discount">Economize 15%</span></span>
+                    </div>
+                </div>
+
+                <div class="plans-grid">
+                    <!-- Plano Basic -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Vibe Basic</h3>
+                            <p class="plan-desc">Essencial para manter a higiene em dia.</p>
+                            <div class="plan-price">
+                                <span class="currency">R$</span>
+                                <span class="price-val" data-monthly="89" data-yearly="75">89</span>
+                                <span class="period">/mês</span>
+                            </div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i data-lucide="check"></i> 1 Banho por mês</li>
+                            <li><i data-lucide="check"></i> Tosa higiênica básica</li>
+                            <li><i data-lucide="check"></i> 5% de desconto na boutique</li>
+                            <li class="disabled"><i data-lucide="x"></i> Leva e traz gratuito</li>
+                            <li class="disabled"><i data-lucide="x"></i> Consulta veterinária anual</li>
+                        </ul>
+                        <div class="plan-action">
+                            <a href="#contato" class="btn btn-outline btn-full">Assinar Agora</a>
+                        </div>
+                    </div>
+
+                    <!-- Plano Pro (Mais Popular) -->
+                    <div class="plan-card popular">
+                        <span class="popular-badge">Mais Popular</span>
+                        <div class="plan-header">
+                            <h3 class="plan-name">Vibe Pro</h3>
+                            <p class="plan-desc">Cuidado regular e acompanhamento de saúde.</p>
+                            <div class="plan-price">
+                                <span class="currency">R$</span>
+                                <span class="price-val" data-monthly="169" data-yearly="143">169</span>
+                                <span class="period">/mês</span>
+                            </div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i data-lucide="check"></i> 2 Banhos por mês</li>
+                            <li><i data-lucide="check"></i> Tosa higiênica e corte de unhas</li>
+                            <li><i data-lucide="check"></i> 1 Consulta clínica por ano</li>
+                            <li><i data-lucide="check"></i> 10% de desconto na boutique</li>
+                            <li><i data-lucide="check"></i> Leva e traz com 50% de desconto</li>
+                        </ul>
+                        <div class="plan-action">
+                            <a href="#contato" class="btn btn-primary btn-full">Assinar Agora</a>
+                        </div>
+                    </div>
+
+                    <!-- Plano VIP -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Vibe VIP</h3>
+                            <p class="plan-desc">Cobertura e mimos totais para seu pet.</p>
+                            <div class="plan-price">
+                                <span class="currency">R$</span>
+                                <span class="price-val" data-monthly="299" data-yearly="254">299</span>
+                                <span class="period">/mês</span>
+                            </div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i data-lucide="check"></i> 4 Banhos por mês</li>
+                            <li><i data-lucide="check"></i> Tosa completa ilimitada</li>
+                            <li><i data-lucide="check"></i> Consultas veterinárias livres</li>
+                            <li><i data-lucide="check"></i> 15% de desconto na boutique</li>
+                            <li><i data-lucide="check"></i> Serviço Leva & Traz grátis</li>
+                        </ul>
+                        <div class="plan-action">
+                            <a href="#contato" class="btn btn-outline btn-full">Assinar Agora</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 5. DEPOIMENTOS                             -->
+        <!-- ========================================== -->
+        <section id="depoimentos" class="testimonials-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Depoimentos</span>
+                    <h2 class="section-title text-center">O que dizem os tutores PetVibe</h2>
+                    <p class="section-subtitle text-center">A satisfação das famílias que confiam no nosso cuidado é o que nos move todos os dias.</p>
+                </div>
+
+                <!-- Carrossel / Slider de Depoimentos -->
+                <div class="testimonials-wrapper">
+                    <div class="testimonials-slider" id="testimonialsSlider">
+                        
+                        <!-- Depoimento 1 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars">
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">"O serviço de Leva e Traz do plano VIP salvou minha rotina! A Pipoca sempre volta super cheirosa, feliz e com gravatinhas lindas. Os profissionais são extremamente atenciosos."</p>
+                            <div class="testimonial-author">
+                                <img src="assets/images/user1.png" alt="Mariana Silva" class="author-image">
+                                <div class="author-info">
+                                    <h4 class="author-name">Mariana Silva</h4>
+                                    <p class="author-pet">Tutora da Pipoca (Golden Retriever)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Depoimento 2 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars">
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">"Eu morria de medo de tosar o Oliver, pois ele é muito arisco. A equipe de estética da PetVibe teve uma paciência incrível com ele. Recomendo de olhos fechados!"</p>
+                            <div class="testimonial-author">
+                                <img src="assets/images/user2.png" alt="Rodrigo Campos" class="author-image">
+                                <div class="author-info">
+                                    <h4 class="author-name">Rodrigo Campos</h4>
+                                    <p class="author-pet">Tutor do Oliver (Gato Persa)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Depoimento 3 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars">
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                                <i data-lucide="star" class="star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">"O Daycare é incrível. O Zeus passa o dia brincando e gastando energia em um ambiente seguro, e eu consigo acompanhar tudo através dos relatórios. Preço super justo pelo cuidado."</p>
+                            <div class="testimonial-author">
+                                <img src="assets/images/user3.png" alt="Ana Luiza Costa" class="author-image">
+                                <div class="author-info">
+                                    <h4 class="author-name">Ana Luiza Costa</h4>
+                                    <p class="author-pet">Tutora do Zeus (Border Collie)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Controles do Slider -->
+                    <div class="slider-controls">
+                        <button class="slider-arrow prev" id="sliderPrev" aria-label="Depoimento anterior">
+                            <i data-lucide="chevron-left"></i>
+                        </button>
+                        <div class="slider-dots" id="sliderDots">
+                            <span class="dot active" data-index="0"></span>
+                            <span class="dot" data-index="1"></span>
+                            <span class="dot" data-index="2"></span>
+                        </div>
+                        <button class="slider-arrow next" id="sliderNext" aria-label="Próximo depoimento">
+                            <i data-lucide="chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 6. CONTATO & LOCALIZAÇÃO                   -->
+        <!-- ========================================== -->
+        <section id="contato" class="contact-section">
+            <div class="container contact-container">
+                
+                <!-- Informações de Contato -->
+                <div class="contact-info">
+                    <span class="section-tag">Fale Conosco</span>
+                    <h2 class="section-title">Estamos prontos para atender você e seu pet.</h2>
+                    <p class="contact-desc">Restou alguma dúvida sobre nossos planos, serviços ou quer fazer um agendamento personalizado? Entre em contato por um de nossos canais ou preencha o formulário ao lado.</p>
+                    
+                    <div class="contact-details-list">
+                        
+                        <div class="contact-detail-item">
+                            <div class="contact-icon">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div class="contact-text-box">
+                                <h4>Endereço</h4>
+                                <p>Av. das Palmeiras, 1024 - Jardim das Flores, São Paulo - SP</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-detail-item">
+                            <div class="contact-icon">
+                                <i data-lucide="phone"></i>
+                            </div>
+                            <div class="contact-text-box">
+                                <h4>Telefone</h4>
+                                <p>(11) 4003-8899</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-detail-item">
+                            <div class="contact-icon">
+                                <i data-lucide="message-square"></i>
+                            </div>
+                            <div class="contact-text-box">
+                                <h4>WhatsApp</h4>
+                                <p><a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="whatsapp-link">(11) 99999-9999</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-detail-item">
+                            <div class="contact-icon">
+                                <i data-lucide="clock"></i>
+                            </div>
+                            <div class="contact-text-box">
+                                <h4>Horário de Funcionamento</h4>
+                                <p>Segunda a Sexta: 08:00 às 19:00<br>Sábado: 08:00 às 16:00</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Formulário de Contato -->
+                <div class="contact-form-box">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Seu Nome</label>
+                            <input type="text" id="name" name="name" placeholder="Ex: Mariana Silva" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" name="email" placeholder="Ex: mariana@exemplo.com" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Celular</label>
+                                <input type="tel" id="phone" name="phone" placeholder="Ex: (11) 99999-9999" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="petName">Nome do Pet</label>
+                                <input type="text" id="petName" name="petName" placeholder="Ex: Pipoca">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="serviceType">Serviço de Interesse</label>
+                                <select id="serviceType" name="serviceType" required>
+                                    <option value="" disabled selected>Selecione um serviço</option>
+                                    <option value="banho">Banho Completo</option>
+                                    <option value="tosa">Tosa Higiênica & Estilo</option>
+                                    <option value="consulta">Consulta Veterinária</option>
+                                    <option value="vacina">Vacinação Preventiva</option>
+                                    <option value="hotel">Hotel & Daycare</option>
+                                    <option value="clube">Assinatura Clube Vibe</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Sua Mensagem</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Como podemos ajudar você e seu pet?" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">Enviar Mensagem</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- 7. FOOTER                                  -->
+    <!-- ========================================== -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <!-- Coluna Logo & Resumo -->
+            <div class="footer-col footer-about">
+                <a href="#" class="logo footer-logo">
+                    <span class="logo-icon"><i data-lucide="paw-print"></i></span>
+                    <span class="logo-text">Pet<span class="logo-accent">Vibe</span></span>
+                </a>
+                <p class="footer-desc">Oferecendo o melhor cuidado para cães e gatos de forma inovadora e humanizada. A conexão perfeita entre carinho e tecnologia.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Visite nosso Instagram"><i data-lucide="instagram"></i></a>
+                    <a href="#" aria-label="Visite nosso Facebook"><i data-lucide="facebook"></i></a>
+                    <a href="#" aria-label="Visite nosso Twitter"><i data-lucide="twitter"></i></a>
+                    <a href="#" aria-label="Entre em contato via WhatsApp"><i data-lucide="message-circle"></i></a>
+                </div>
+            </div>
+
+            <!-- Coluna Links Rápidos -->
+            <div class="footer-col">
+                <h4 class="footer-col-title">Links Rápidos</h4>
+                <ul class="footer-links">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#servicos">Nossos Serviços</a></li>
+                    <li><a href="#planos">Planos Clube Vibe</a></li>
+                    <li><a href="#depoimentos">Depoimentos</a></li>
+                </ul>
+            </div>
+
+            <!-- Coluna Serviços -->
+            <div class="footer-col">
+                <h4 class="footer-col-title">Serviços</h4>
+                <ul class="footer-links">
+                    <li><a href="#servicos">Banho Completo</a></li>
+                    <li><a href="#servicos">Tosa de Estilo</a></li>
+                    <li><a href="#servicos">Consultas Clínicas</a></li>
+                    <li><a href="#servicos">Vacinas Preventivas</a></li>
+                    <li><a href="#servicos">Hospedagem & Daycare</a></li>
+                </ul>
+            </div>
+
+            <!-- Coluna Newsletter -->
+            <div class="footer-col footer-newsletter">
+                <h4 class="footer-col-title">Receba Novidades</h4>
+                <p>Inscreva-se em nossa newsletter para receber dicas de bem-estar pet e ofertas exclusivas.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Seu melhor e-mail" aria-label="E-mail para newsletter" required>
+                    <button type="submit" aria-label="Cadastrar"><i data-lucide="send"></i></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p class="copyright">&copy; 2026 PetVibe. Todos os direitos reservados. Feito com amor por amantes de pets.</p>
+                <div class="footer-policies">
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Inicialização dos ícones do Lucide no final da renderização -->
+    <script>
+        lucide.createIcons();
+    </script>
+    
+    <!-- Link para o Script Externo -->
+    <script src="js/script.js"></script>
+</body>
+</html>
