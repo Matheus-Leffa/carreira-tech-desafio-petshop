@@ -36,6 +36,14 @@ petvibe/
 - Formulário de contato com validação em JavaScript
 - Feedback visual para erros e envio bem-sucedido
 
+## Etapas do Desenvolvimento
+
+1. Estruturação inicial da página com HTML semântico e organização das seções principais.
+2. Aplicação do layout visual com CSS, incluindo tipografia, cores, cards e responsividade.
+3. Implementação das interações com JavaScript, como menu mobile, carrossel e navegação ativa.
+4. Ajustes de acessibilidade, validação de formulário e refinamento do comportamento em telas menores.
+5. Revisão final para correção de overflow, alinhamento de elementos e consistência visual em diferentes dispositivos.
+
 ## Como Executar
 
 1. Baixe ou clone o projeto.
