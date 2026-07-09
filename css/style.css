@@ -708,7 +708,7 @@ button {
 
 .about-container {
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
+    grid-template-columns: 0.95fr 1.05fr;
     gap: 60px;
     align-items: center;
 }
@@ -740,48 +740,117 @@ button {
 }
 
 .about-content {
-    max-width: 550px;
+    max-width: 580px;
+}
+
+.about-subtitle {
+    font-size: 1.5rem;
+    color: var(--color-dark);
+    margin: 20px 0 10px;
 }
 
 .section-description {
     font-size: 1.05rem;
     color: var(--color-gray);
+    margin-bottom: 24px;
+}
+
+/* Missão & Valores - Layout Flexbox */
+.about-mission-values {
+    display: flex;
+    gap: 20px;
     margin-bottom: 40px;
 }
 
-/* Indicadores */
-.about-indicators {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.indicator-card {
+.about-box {
+    flex: 1;
     background-color: var(--color-light);
-    padding: 24px 16px;
-    border-radius: var(--radius-md);
-    text-align: center;
     border: 1px solid var(--color-light-gray);
+    border-radius: var(--radius-md);
+    padding: 24px;
     transition: var(--transition);
 }
 
-.indicator-card:hover {
-    transform: translateY(-5px);
+.about-box:hover {
+    transform: translateY(-3px);
     border-color: var(--color-primary);
     box-shadow: var(--shadow-md);
 }
 
+.box-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.box-header i {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+}
+
+.box-header h4 {
+    font-size: 1.15rem;
+    color: var(--color-dark);
+}
+
+.about-box p {
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    line-height: 1.6;
+}
+
+/* Indicadores Flexbox & Destaque Visual */
+.about-indicators {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.indicator-card {
+    flex: 1;
+    background: linear-gradient(135deg, var(--color-white) 0%, var(--color-primary-light) 100%);
+    padding: 28px 20px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    border: 2px solid transparent;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.indicator-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+}
+
+.indicator-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(108, 92, 231, 0.15);
+    box-shadow: var(--shadow-lg);
+}
+
 .indicator-number {
     display: block;
-    font-size: 2rem;
+    font-size: 2.25rem;
     font-weight: 800;
     color: var(--color-primary);
     font-family: var(--font-primary);
     margin-bottom: 6px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .indicator-label {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--color-dark);
     font-weight: 600;
 }
