@@ -57,6 +57,10 @@ body {
     overflow-x: hidden;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-primary);
     font-weight: 700;
@@ -1772,6 +1776,27 @@ textarea.contact-form__control {
 
 /* --- MOBILE MENU & SMALL DEVICES BREAKPOINT (max-width: 768px) --- */
 @media (max-width: 768px) {
+    .hero-bg-shapes,
+    .shape {
+        display: none !important;
+    }
+
+    .hero-section,
+    .about-section,
+    .services-section,
+    .plans-section,
+    .testimonials-section,
+    .contact-section {
+        padding-top: 72px;
+        padding-bottom: 72px;
+    }
+
+    .hero-section {
+        min-height: auto;
+        padding-top: calc(var(--header-height) + 28px);
+        padding-bottom: 56px;
+    }
+
     /* Menu Mobile Hambúrguer */
     .menu-toggle {
         display: flex;
@@ -1816,7 +1841,8 @@ textarea.contact-form__control {
     }
 
     .hero-title {
-        font-size: 2.2rem;
+        font-size: clamp(1.95rem, 6.8vw, 2.35rem);
+        line-height: 1.15;
     }
     
     .hero-actions {
@@ -1834,9 +1860,74 @@ textarea.contact-form__control {
         gap: 16px;
         align-items: center;
     }
+
+    .section-title {
+        font-size: clamp(1.75rem, 5.8vw, 2rem);
+        line-height: 1.15;
+        text-wrap: balance;
+    }
+
+    .section-subtitle,
+    .hero-subtitle,
+    .contact-desc {
+        font-size: 1rem;
+    }
+
+    .hero-media .image-wrapper {
+        max-width: 340px;
+        width: min(100%, 340px);
+        margin: 0 auto;
+    }
+
+    .about-container,
+    .about-media,
+    .about-content,
+    .about-image-wrapper,
+    .contact-container,
+    .contact-form-box,
+    .footer-container,
+    .footer-bottom-container {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .about-container > * {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .about-media,
+    .about-content {
+        max-width: 100%;
+    }
+
+    .about-media {
+        display: block;
+    }
+
+    .about-image-wrapper {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .about-mission-values,
+    .about-indicators {
+        flex-direction: column;
+    }
+
+    .about-box,
+    .indicator-card {
+        width: 100%;
+    }
     
     .services-grid {
         grid-template-columns: 1fr;
+    }
+
+    .service-card,
+    .plan-card,
+    .testimonial-card {
+        padding: 24px;
     }
     
     .plans-grid {
@@ -1848,7 +1939,7 @@ textarea.contact-form__control {
     }
     
     .testimonial-card {
-        padding: 30px;
+        padding: 24px;
     }
     
     .testimonial-text {
@@ -1861,6 +1952,11 @@ textarea.contact-form__control {
     
     .contact-form__row {
         grid-template-columns: 1fr;
+    }
+
+    .social-links {
+        justify-content: center;
+        flex-wrap: wrap;
     }
     
     .footer-container {
@@ -1885,5 +1981,84 @@ textarea.contact-form__control {
         flex-direction: column;
         gap: 16px;
         text-align: center;
+    }
+}
+
+/* --- SMALL MOBILE BREAKPOINT (360px a 430px) --- */
+@media (max-width: 430px) {
+    .container {
+        padding: 0 18px;
+    }
+
+    .hero-section,
+    .about-section,
+    .services-section,
+    .plans-section,
+    .testimonials-section,
+    .contact-section,
+    .main-footer {
+        padding-top: 56px;
+        padding-bottom: 56px;
+    }
+
+    .hero-section {
+        padding-top: calc(var(--header-height) + 20px);
+        padding-bottom: 44px;
+    }
+
+    .hero-container,
+    .about-container,
+    .contact-container {
+        gap: 28px;
+    }
+
+    .hero-title,
+    .section-title {
+        font-size: clamp(1.7rem, 8vw, 2.1rem);
+    }
+
+    .hero-subtitle,
+    .section-subtitle,
+    .contact-desc {
+        font-size: 0.98rem;
+    }
+
+    .hero-actions {
+        max-width: 100%;
+    }
+
+    .hero-actions .btn {
+        padding: 14px 22px;
+    }
+
+    .hero-media .image-wrapper {
+        max-width: 320px;
+        width: min(100%, 320px);
+    }
+
+    .about-image-wrapper,
+    .contact-form-box {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .contact-form-box {
+        padding: 20px;
+    }
+
+    .plan-toggle-container {
+        margin-top: 0;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+
+    .footer-bottom-container {
+        gap: 12px;
+    }
+
+    .footer-policies {
+        flex-direction: column;
+        gap: 8px;
     }
 }
