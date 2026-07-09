@@ -82,6 +82,15 @@ button, input, select, textarea {
     outline: none;
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+}
+
 button {
     cursor: pointer;
     background: none;
@@ -411,6 +420,7 @@ button {
     letter-spacing: -1.5px;
     font-weight: 800;
     background: linear-gradient(135deg, var(--color-dark) 60%, var(--color-primary));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -847,6 +857,7 @@ button {
     font-family: var(--font-primary);
     margin-bottom: 6px;
     background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -1308,6 +1319,9 @@ button {
     border-radius: var(--radius-full);
     background-color: var(--color-light-gray);
     cursor: pointer;
+    border: 0;
+    padding: 0;
+    appearance: none;
     transition: var(--transition);
 }
 

@@ -31,9 +31,9 @@
             </a>
 
             <!-- Navegação Desktop -->
-            <nav class="nav-menu" id="navMenu">
+            <nav class="nav-menu" id="navMenu" aria-label="Navegação principal">
                 <ul class="nav-list">
-                    <li><a href="#inicio" class="nav-link active">Início</a></li>
+                    <li><a href="#inicio" class="nav-link active" aria-current="page">Início</a></li>
                     <li><a href="#sobre" class="nav-link">Sobre</a></li>
                     <li><a href="#servicos" class="nav-link">Serviços</a></li>
                     <li><a href="#planos" class="nav-link">Planos</a></li>
@@ -45,7 +45,7 @@
             <!-- Ações e Menu Hambúrguer -->
             <div class="header-actions">
                 <a href="#contato" class="btn btn-primary btn-header-cta">Agendar Agora</a>
-                <button class="menu-toggle" id="menuToggle" aria-label="Abrir Menu">
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-controls="navMenu" aria-expanded="false">
                     <i data-lucide="menu" class="icon-menu"></i>
                     <i data-lucide="x" class="icon-close hidden"></i>
                 </button>
@@ -434,9 +434,9 @@
                             <i data-lucide="chevron-left"></i>
                         </button>
                         <div class="slider-dots" id="sliderDots">
-                            <span class="dot active" data-index="0"></span>
-                            <span class="dot" data-index="1"></span>
-                            <span class="dot" data-index="2"></span>
+                            <button type="button" class="dot active" data-index="0" aria-label="Ir para o depoimento 1"></button>
+                            <button type="button" class="dot" data-index="1" aria-label="Ir para o depoimento 2"></button>
+                            <button type="button" class="dot" data-index="2" aria-label="Ir para o depoimento 3"></button>
                         </div>
                         <button class="slider-arrow next" id="sliderNext" aria-label="Próximo depoimento">
                             <i data-lucide="chevron-right"></i>

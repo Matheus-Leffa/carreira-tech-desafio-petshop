@@ -38,6 +38,7 @@ function initMobileMenu() {
     }
 
     menuToggle.addEventListener('click', toggleMenu);
+    menuToggle.setAttribute('aria-expanded', 'false');
 
     // Fecha o menu ao clicar em qualquer link
     navLinks.forEach(link => {
