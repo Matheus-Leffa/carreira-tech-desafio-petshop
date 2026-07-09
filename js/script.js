@@ -106,8 +106,8 @@ function initBackToTop() {
         boxShadow: '0 4px 12px rgba(108, 92, 231, 0.3)',
         cursor: 'pointer',
         display: 'flex',
-        align-items: 'center',
-        justify-content: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
         transition: 'all 0.3s ease',
         opacity: '0',
         visibility: 'hidden',
@@ -166,57 +166,10 @@ function initFormValidation() {
     const contactForm = document.getElementById('contactForm');
     const newsletterForm = document.getElementById('newsletterForm');
 
-    // Validação do Formulário de Contato
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Remove mensagens de feedback antigas
-            removeFeedbackMessages(contactForm);
-
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const phoneInput = document.getElementById('phone');
-            const messageInput = document.getElementById('message');
-            
-            let isValid = true;
-            let firstInvalidInput = null;
-
-            // Validações individuais
-            if (!validateRequired(nameInput)) {
-                isValid = false;
-                if (!firstInvalidInput) firstInvalidInput = nameInput;
-            }
-
-            if (!validateRequired(emailInput) || !validateEmail(emailInput.value)) {
-                isValid = false;
-                setError(emailInput, 'Por favor, insira um e-mail válido.');
-                if (!firstInvalidInput) firstInvalidInput = emailInput;
-            } else {
-                clearError(emailInput);
-            }
-
-            if (!validateRequired(phoneInput)) {
-                isValid = false;
-                if (!firstInvalidInput) firstInvalidInput = phoneInput;
-            }
-
-            if (!validateRequired(messageInput)) {
-                isValid = false;
-                if (!firstInvalidInput) firstInvalidInput = messageInput;
-            }
-
-            if (isValid) {
-                showFeedback(contactForm, 'success', 'Muito obrigado! Sua mensagem foi enviada. Entraremos em contato em breve.');
-                contactForm.reset();
-            } else {
-                showFeedback(contactForm, 'error', 'Por favor, preencha todos os campos obrigatórios corretamente.');
-                if (firstInvalidInput) firstInvalidInput.focus();
-            }
-        });
+        initContactFormValidation(contactForm);
     }
 
-    // Validação do Formulário de Newsletter
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -233,14 +186,72 @@ function initFormValidation() {
     }
 }
 
-// Auxiliar: Validação se preenchido
-function validateRequired(input) {
-    if (!input) return false;
-    if (input.value.trim() === '') {
-        setError(input, 'Este campo é obrigatório.');
+function initContactFormValidation(contactForm) {
+    const fields = Array.from(contactForm.querySelectorAll('.contact-form__control'));
+
+    fields.forEach(field => {
+        field.addEventListener('blur', () => {
+            field.dataset.touched = 'true';
+            validateContactField(field);
+        });
+
+        const validateOnChange = () => {
+            if (field.dataset.touched === 'true' || field.classList.contains('contact-form__control--invalid')) {
+                validateContactField(field);
+            }
+        };
+
+        field.addEventListener('input', validateOnChange);
+        field.addEventListener('change', validateOnChange);
+    });
+
+    contactForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        removeContactSuccessMessage(contactForm);
+
+        let firstInvalidField = null;
+
+        fields.forEach(field => {
+            field.dataset.touched = 'true';
+
+            if (!validateContactField(field) && !firstInvalidField) {
+                firstInvalidField = field;
+            }
+        });
+
+        if (firstInvalidField) {
+            firstInvalidField.focus();
+            return;
+        }
+
+        showContactSuccessMessage(contactForm, 'Mensagem enviada com sucesso. Entraremos em contato em breve.');
+        contactForm.reset();
+
+        fields.forEach(field => {
+            field.dataset.touched = 'false';
+            clearContactFieldState(field);
+        });
+    });
+}
+
+function validateContactField(field) {
+    const value = field.value.trim();
+    let errorMessage = '';
+
+    if (!value) {
+        errorMessage = 'Este campo é obrigatório.';
+    } else if (field.id === 'email' && !validateEmail(value)) {
+        errorMessage = 'Digite um e-mail válido.';
+    } else if (field.id === 'phone' && !validatePhone(value)) {
+        errorMessage = 'Digite um telefone válido com DDD.';
+    }
+
+    if (errorMessage) {
+        setContactFieldError(field, errorMessage);
         return false;
     }
-    clearError(input);
+
+    clearContactFieldState(field);
     return true;
 }
 
@@ -250,74 +261,57 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
-// Auxiliar: Define mensagem de erro individual
-function setError(input, message) {
-    const formGroup = input.parentElement;
-    formGroup.classList.add('error');
-    
-    // Verifica se já existe um elemento de erro
-    let errorElement = formGroup.querySelector('.error-message');
-    if (!errorElement) {
-        errorElement = document.createElement('span');
-        errorElement.className = 'error-message';
-        formGroup.appendChild(errorElement);
+function validatePhone(phone) {
+    const digits = phone.replace(/\D/g, '');
+    return digits.length === 10 || digits.length === 11;
+}
+
+function setContactFieldError(field, message) {
+    const fieldWrapper = field.closest('.contact-form__field');
+    const errorElement = fieldWrapper?.querySelector('.contact-form__error');
+
+    if (!fieldWrapper || !errorElement) {
+        return;
     }
+
+    fieldWrapper.classList.add('contact-form__field--error');
+    field.classList.add('contact-form__control--invalid');
+    field.setAttribute('aria-invalid', 'true');
     errorElement.textContent = message;
-    
-    // Estilização rápida de erro
-    errorElement.style.color = '#ff7675';
-    errorElement.style.fontSize = '0.8rem';
-    errorElement.style.marginTop = '4px';
-    errorElement.style.display = 'block';
-    input.style.borderColor = '#ff7675';
 }
 
-// Auxiliar: Limpa erro individual
-function clearError(input) {
-    const formGroup = input.parentElement;
-    formGroup.classList.remove('error');
-    const errorElement = formGroup.querySelector('.error-message');
-    if (errorElement) {
-        errorElement.remove();
-    }
-    input.style.borderColor = '';
-}
+function clearContactFieldState(field) {
+    const fieldWrapper = field.closest('.contact-form__field');
+    const errorElement = fieldWrapper?.querySelector('.contact-form__error');
 
-// Auxiliar: Mostra alerta geral no formulário
-function showFeedback(form, type, message) {
-    const feedback = document.createElement('div');
-    feedback.className = `form-feedback feedback-${type}`;
-    feedback.textContent = message;
-    
-    // Estilização dinâmica da mensagem
-    Object.assign(feedback.style, {
-        padding: '16px',
-        borderRadius: '8px',
-        marginBottom: '20px',
-        fontWeight: '600',
-        fontSize: '0.95rem',
-        textAlign: 'center',
-        width: '100%',
-        animation: 'fadeIn 0.3s ease'
-    });
-
-    if (type === 'success') {
-        feedback.style.backgroundColor = '#d4edda';
-        feedback.style.color = '#155724';
-        feedback.style.border = '1px solid #c3e6cb';
-    } else {
-        feedback.style.backgroundColor = '#f8d7da';
-        feedback.style.color = '#721c24';
-        feedback.style.border = '1px solid #f5c6cb';
+    if (!fieldWrapper || !errorElement) {
+        return;
     }
 
-    form.insertBefore(feedback, form.firstChild);
+    fieldWrapper.classList.remove('contact-form__field--error');
+    field.classList.remove('contact-form__control--invalid');
+    field.setAttribute('aria-invalid', 'false');
+    errorElement.textContent = '';
 }
 
-// Auxiliar: Remove feedbacks gerais anteriores
-function removeFeedbackMessages(form) {
-    const existingFeedbacks = form.querySelectorAll('.form-feedback');
-    existingFeedbacks.forEach(msg => msg.remove());
+function showContactSuccessMessage(form, message) {
+    let messageBox = form.querySelector('.contact-form__message');
+
+    if (!messageBox) {
+        messageBox = document.createElement('div');
+        messageBox.className = 'contact-form__message';
+        form.insertBefore(messageBox, form.firstChild);
+    }
+
+    messageBox.textContent = message;
+}
+
+function removeContactSuccessMessage(form) {
+    const messageBox = form.querySelector('.contact-form__message');
+
+    if (messageBox) {
+        messageBox.remove();
+    }
 }
 
 /**
