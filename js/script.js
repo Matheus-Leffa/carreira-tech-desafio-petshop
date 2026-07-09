@@ -6,6 +6,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initSmoothScroll();
+    initActiveNavigation();
     initBackToTop();
     initFormValidation();
     initScrollAnimations();
@@ -80,6 +81,127 @@ function initSmoothScroll() {
             }
         });
     });
+}
+
+/**
+ * 2.1. Navegação Ativa
+ * Atualiza o link ativo da navbar conforme a seção visível usando Intersection Observer.
+ */
+function initActiveNavigation() {
+    const navLinks = Array.from(document.querySelectorAll('#navMenu .nav-link[href^="#"]'));
+
+    if (navLinks.length === 0) return;
+
+    const sectionLinks = navLinks
+        .map(link => {
+            const sectionId = link.getAttribute('href')?.slice(1);
+            const section = sectionId ? document.getElementById(sectionId) : null;
+
+            return section ? { sectionId, section, link } : null;
+        })
+        .filter(Boolean);
+
+    if (sectionLinks.length === 0) return;
+
+    const setActiveLink = (sectionId) => {
+        navLinks.forEach(link => {
+            const isActive = link.getAttribute('href') === `#${sectionId}`;
+            link.classList.toggle('active', isActive);
+
+            if (isActive) {
+                link.setAttribute('aria-current', 'page');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        });
+    };
+
+    // Garante destaque correto quando a página carrega ou quando o usuário navega por âncoras.
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const targetId = link.getAttribute('href')?.slice(1);
+            if (targetId) {
+                setActiveLink(targetId);
+            }
+        });
+    });
+
+    const firstSectionId = sectionLinks[0].sectionId;
+    const lastSectionId = sectionLinks[sectionLinks.length - 1].sectionId;
+    const visibleSections = new Map();
+
+    const updateActiveFromVisibleSections = () => {
+        if (visibleSections.size > 0) {
+            let bestSectionId = firstSectionId;
+            let bestRatio = -1;
+
+            visibleSections.forEach((ratio, sectionId) => {
+                if (ratio > bestRatio) {
+                    bestRatio = ratio;
+                    bestSectionId = sectionId;
+                }
+            });
+
+            setActiveLink(bestSectionId);
+            return;
+        }
+
+        if (window.scrollY <= 2) {
+            setActiveLink(firstSectionId);
+            return;
+        }
+
+        const scrollBottom = window.scrollY + window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
+        if (scrollBottom >= documentHeight - 2) {
+            setActiveLink(lastSectionId);
+        }
+    };
+
+    if ('IntersectionObserver' in window) {
+        const headerHeight = document.querySelector('.main-header')?.offsetHeight || 80;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const sectionId = entry.target.id;
+
+                if (entry.isIntersecting) {
+                    visibleSections.set(sectionId, entry.intersectionRatio);
+                } else {
+                    visibleSections.delete(sectionId);
+                }
+            });
+
+            updateActiveFromVisibleSections();
+        }, {
+            root: null,
+            threshold: [0.2, 0.35, 0.5, 0.65],
+            rootMargin: `-${headerHeight + 1}px 0px -45% 0px`
+        });
+
+        sectionLinks.forEach(({ section }) => observer.observe(section));
+        updateActiveFromVisibleSections();
+        return;
+    }
+
+    // Fallback enxuto para navegadores sem Intersection Observer.
+    const updateByScroll = () => {
+        const headerHeight = document.querySelector('.main-header')?.offsetHeight || 80;
+        const viewportReference = window.scrollY + headerHeight + (window.innerHeight * 0.35);
+        let currentSectionId = firstSectionId;
+
+        sectionLinks.forEach(({ sectionId, section }) => {
+            if (viewportReference >= section.offsetTop) {
+                currentSectionId = sectionId;
+            }
+        });
+
+        setActiveLink(currentSectionId);
+    };
+
+    window.addEventListener('scroll', updateByScroll, { passive: true });
+    updateByScroll();
 }
 
 /**
