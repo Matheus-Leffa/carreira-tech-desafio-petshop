@@ -1,0 +1,27 @@
+{
+  "name": "petvibe-backend",
+  "version": "1.0.0",
+  "description": "Backend da landing page PetVibe com Node.js, Express e PostgreSQL.",
+  "main": "app.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "keywords": [
+    "petvibe",
+    "backend",
+    "express",
+    "postgresql",
+    "sequelize"
+  ],
+  "author": "Matheus Santos Leffa",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.22.0",
+    "sequelize": "^6.37.8"
+  }
+}
