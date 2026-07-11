@@ -1,4 +1,5 @@
 const Contato = require('../models/Contato');
+const { ApiError } = require('../middleware/errorHandler');
 
 function getContatoPayload(body) {
   return {
@@ -36,10 +37,7 @@ function hasValidationErrors(errors) {
 }
 
 function sendValidationResponse(res, errors) {
-  return res.status(400).json({
-    message: 'Dados inválidos.',
-    errors
-  });
+  throw new ApiError(400, 'Dados inválidos.', { errors });
 }
 
 function buildOrderMostRecentFirst() {
@@ -48,35 +46,38 @@ function buildOrderMostRecentFirst() {
 
 function sendContatoListResponse(res, contatos) {
   return res.status(200).json({
+    success: true,
     message: 'Contatos encontrados com sucesso.',
-    data: contatos
+    data: {
+      contatos
+    }
   });
 }
 
-async function createContato(req, res) {
+async function createContato(req, res, next) {
   const payload = getContatoPayload(req.body);
   const errors = validateContatoPayload(payload);
 
   if (hasValidationErrors(errors)) {
-    return sendValidationResponse(res, errors);
+    return next(new ApiError(400, 'Dados inválidos.', { errors }));
   }
 
   try {
     const contato = await Contato.create(payload);
 
     return res.status(201).json({
+      success: true,
       message: 'Contato enviado com sucesso.',
-      data: contato
+      data: {
+        contato
+      }
     });
   } catch (error) {
-    return res.status(500).json({
-      message: 'Erro ao salvar o contato.',
-      error: 'INTERNAL_SERVER_ERROR'
-    });
+    return next(new ApiError(500, 'Erro ao salvar o contato.', {}));
   }
 }
 
-async function listContatos(req, res) {
+async function listContatos(req, res, next) {
   try {
     const contatos = await Contato.findAll({
       order: buildOrderMostRecentFirst()
@@ -84,10 +85,7 @@ async function listContatos(req, res) {
 
     return sendContatoListResponse(res, contatos);
   } catch (error) {
-    return res.status(500).json({
-      message: 'Erro ao listar os contatos.',
-      error: 'INTERNAL_SERVER_ERROR'
-    });
+    return next(new ApiError(500, 'Erro ao listar os contatos.', {}));
   }
 }
 

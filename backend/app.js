@@ -4,6 +4,7 @@ require('dotenv').config();
 
 const { sequelize, testDatabaseConnection } = require('./config/database');
 const contatoRoutes = require('./routes/contatoRoutes');
+const { notFoundHandler, globalErrorHandler } = require('./middleware/errorHandler');
 
 // Carrega os models antes da sincronização para registrar as tabelas no Sequelize.
 require('./models/Contato');
@@ -13,6 +14,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/api', contatoRoutes);
+app.use(notFoundHandler);
+app.use(globalErrorHandler);
 
 const PORT = process.env.PORT || 3001;
 
