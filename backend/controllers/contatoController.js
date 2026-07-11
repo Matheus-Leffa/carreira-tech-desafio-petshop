@@ -36,10 +36,6 @@ function hasValidationErrors(errors) {
   return Object.keys(errors).length > 0;
 }
 
-function sendValidationResponse(res, errors) {
-  throw new ApiError(400, 'Dados inválidos.', { errors });
-}
-
 function buildOrderMostRecentFirst() {
   return [['createdAt', 'DESC']];
 }

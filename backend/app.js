@@ -11,8 +11,12 @@ require('./models/Contato');
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN || true
+};
+
+app.use(cors(corsOptions));
+app.use(express.json({ limit: '100kb' }));
 app.use('/api', contatoRoutes);
 app.use(notFoundHandler);
 app.use(globalErrorHandler);
