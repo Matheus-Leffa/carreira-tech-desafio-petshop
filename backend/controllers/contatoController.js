@@ -42,6 +42,17 @@ function sendValidationResponse(res, errors) {
   });
 }
 
+function buildOrderMostRecentFirst() {
+  return [['createdAt', 'DESC']];
+}
+
+function sendContatoListResponse(res, contatos) {
+  return res.status(200).json({
+    message: 'Contatos encontrados com sucesso.',
+    data: contatos
+  });
+}
+
 async function createContato(req, res) {
   const payload = getContatoPayload(req.body);
   const errors = validateContatoPayload(payload);
@@ -65,6 +76,22 @@ async function createContato(req, res) {
   }
 }
 
+async function listContatos(req, res) {
+  try {
+    const contatos = await Contato.findAll({
+      order: buildOrderMostRecentFirst()
+    });
+
+    return sendContatoListResponse(res, contatos);
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Erro ao listar os contatos.',
+      error: 'INTERNAL_SERVER_ERROR'
+    });
+  }
+}
+
 module.exports = {
-  createContato
+  createContato,
+  listContatos
 };

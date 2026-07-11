@@ -290,7 +290,7 @@ function initFormValidation() {
     const newsletterForm = document.getElementById('newsletterForm');
 
     if (contactForm) {
-        initContactFormValidation(contactForm);
+        initContactFormSubmission(contactForm);
     }
 
     if (newsletterForm) {
@@ -309,115 +309,69 @@ function initFormValidation() {
     }
 }
 
-function initContactFormValidation(contactForm) {
-    const fields = Array.from(contactForm.querySelectorAll('.contact-form__control'));
+function initContactFormSubmission(contactForm) {
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const controls = Array.from(contactForm.querySelectorAll('.contact-form__control'));
 
-    fields.forEach(field => {
-        field.addEventListener('blur', () => {
-            field.dataset.touched = 'true';
-            validateContactField(field);
-        });
-
-        const validateOnChange = () => {
-            if (field.dataset.touched === 'true' || field.classList.contains('contact-form__control--invalid')) {
-                validateContactField(field);
-            }
-        };
-
-        field.addEventListener('input', validateOnChange);
-        field.addEventListener('change', validateOnChange);
-    });
-
-    contactForm.addEventListener('submit', (event) => {
+    contactForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-        removeContactSuccessMessage(contactForm);
 
-        let firstInvalidField = null;
+        clearContactFormFeedback(contactForm, controls);
+        clearContactStatusTimer(contactForm);
 
-        fields.forEach(field => {
-            field.dataset.touched = 'true';
+        const payload = getContactFormPayload(contactForm);
+        setContactFormLoadingState(contactForm, submitButton, true);
 
-            if (!validateContactField(field) && !firstInvalidField) {
-                firstInvalidField = field;
+        try {
+            const response = await fetch('/api/contato', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                applyContactFormErrors(contactForm, controls, result.errors, result.message || 'Não foi possível enviar o formulário.');
+                return;
             }
-        });
 
-        if (firstInvalidField) {
-            firstInvalidField.focus();
-            return;
+            showContactFormMessage(contactForm, result.message || 'Mensagem enviada com sucesso.', 'success');
+            contactForm.reset();
+        } catch (error) {
+            showContactFormMessage(contactForm, 'Falha na conexão. Tente novamente em instantes.', 'error');
+        } finally {
+            setContactFormLoadingState(contactForm, submitButton, false);
         }
-
-        showContactSuccessMessage(contactForm, 'Mensagem enviada com sucesso. Entraremos em contato em breve.');
-        contactForm.reset();
-
-        fields.forEach(field => {
-            field.dataset.touched = 'false';
-            clearContactFieldState(field);
-        });
     });
 }
 
-function validateContactField(field) {
-    const value = field.value.trim();
-    let errorMessage = '';
+function getContactFormPayload(contactForm) {
+    const formData = new FormData(contactForm);
 
-    if (!value) {
-        errorMessage = 'Este campo é obrigatório.';
-    } else if (field.id === 'email' && !validateEmail(value)) {
-        errorMessage = 'Digite um e-mail válido.';
-    } else if (field.id === 'phone' && !validatePhone(value)) {
-        errorMessage = 'Digite um telefone válido com DDD.';
+    return {
+        nome: String(formData.get('name') || '').trim(),
+        email: String(formData.get('email') || '').trim(),
+        telefone: String(formData.get('phone') || '').trim(),
+        servico: String(formData.get('serviceType') || '').trim(),
+        mensagem: String(formData.get('message') || '').trim()
+    };
+}
+
+function setContactFormLoadingState(contactForm, submitButton, isLoading) {
+    const label = isLoading ? 'Enviando...' : 'Enviar Mensagem';
+
+    contactForm.dataset.loading = isLoading ? 'true' : 'false';
+
+    if (submitButton) {
+        submitButton.disabled = isLoading;
+        submitButton.textContent = label;
     }
-
-    if (errorMessage) {
-        setContactFieldError(field, errorMessage);
-        return false;
-    }
-
-    clearContactFieldState(field);
-    return true;
 }
 
-// Auxiliar: Validação de E-mail
-function validateEmail(email) {
-    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return re.test(String(email).toLowerCase());
-}
-
-function validatePhone(phone) {
-    const digits = phone.replace(/\D/g, '');
-    return digits.length === 10 || digits.length === 11;
-}
-
-function setContactFieldError(field, message) {
-    const fieldWrapper = field.closest('.contact-form__field');
-    const errorElement = fieldWrapper?.querySelector('.contact-form__error');
-
-    if (!fieldWrapper || !errorElement) {
-        return;
-    }
-
-    fieldWrapper.classList.add('contact-form__field--error');
-    field.classList.add('contact-form__control--invalid');
-    field.setAttribute('aria-invalid', 'true');
-    errorElement.textContent = message;
-}
-
-function clearContactFieldState(field) {
-    const fieldWrapper = field.closest('.contact-form__field');
-    const errorElement = fieldWrapper?.querySelector('.contact-form__error');
-
-    if (!fieldWrapper || !errorElement) {
-        return;
-    }
-
-    fieldWrapper.classList.remove('contact-form__field--error');
-    field.classList.remove('contact-form__control--invalid');
-    field.setAttribute('aria-invalid', 'false');
-    errorElement.textContent = '';
-}
-
-function showContactSuccessMessage(form, message) {
+function showContactFormMessage(form, message, type = 'success') {
     let messageBox = form.querySelector('.contact-form__message');
 
     if (!messageBox) {
@@ -427,13 +381,99 @@ function showContactSuccessMessage(form, message) {
     }
 
     messageBox.textContent = message;
+    messageBox.style.display = 'block';
+    messageBox.style.marginBottom = '16px';
+    messageBox.style.padding = '12px 16px';
+    messageBox.style.borderRadius = '8px';
+    messageBox.style.fontWeight = '600';
+    messageBox.style.lineHeight = '1.4';
+    messageBox.style.border = '1px solid transparent';
+
+    if (type === 'success') {
+        messageBox.style.backgroundColor = '#e8f7ed';
+        messageBox.style.color = '#146c2e';
+        messageBox.style.borderColor = '#b7e4c7';
+        clearContactStatusTimer(form);
+        form.dataset.statusTimer = String(window.setTimeout(() => {
+            if (messageBox.isConnected) {
+                messageBox.remove();
+            }
+            clearContactStatusTimer(form);
+        }, 4000));
+        return;
+    }
+
+    messageBox.style.backgroundColor = '#fdecec';
+    messageBox.style.color = '#9b1c1c';
+    messageBox.style.borderColor = '#f5b5b5';
+    messageBox.removeAttribute('data-auto-hide');
 }
 
-function removeContactSuccessMessage(form) {
-    const messageBox = form.querySelector('.contact-form__message');
+function clearContactFormFeedback(contactForm, controls) {
+    const messageBox = contactForm.querySelector('.contact-form__message');
 
     if (messageBox) {
         messageBox.remove();
+    }
+
+    controls.forEach(clearContactFieldError);
+}
+
+function clearContactStatusTimer(form) {
+    const timerId = Number(form.dataset.statusTimer || 0);
+
+    if (timerId) {
+        window.clearTimeout(timerId);
+    }
+
+    delete form.dataset.statusTimer;
+}
+
+function applyContactFormErrors(contactForm, controls, errors, fallbackMessage) {
+    if (errors && typeof errors === 'object') {
+        Object.entries(errors).forEach(([fieldName, message]) => {
+            setContactFieldError(contactForm, fieldName, message);
+        });
+    }
+
+    showContactFormMessage(contactForm, fallbackMessage, 'error');
+}
+
+function setContactFieldError(contactForm, fieldName, message) {
+    const field = contactForm.querySelector(`[name="${fieldName}"]`) || contactForm.querySelector(`#${fieldName}`);
+
+    if (!field) {
+        return;
+    }
+
+    const fieldWrapper = field.closest('.contact-form__field');
+    const errorElement = fieldWrapper?.querySelector('.contact-form__error');
+
+    if (fieldWrapper) {
+        fieldWrapper.classList.add('contact-form__field--error');
+    }
+
+    field.classList.add('contact-form__control--invalid');
+    field.setAttribute('aria-invalid', 'true');
+
+    if (errorElement) {
+        errorElement.textContent = message;
+    }
+}
+
+function clearContactFieldError(field) {
+    const fieldWrapper = field.closest('.contact-form__field');
+    const errorElement = fieldWrapper?.querySelector('.contact-form__error');
+
+    field.classList.remove('contact-form__control--invalid');
+    field.setAttribute('aria-invalid', 'false');
+
+    if (fieldWrapper) {
+        fieldWrapper.classList.remove('contact-form__field--error');
+    }
+
+    if (errorElement) {
+        errorElement.textContent = '';
     }
 }
 
