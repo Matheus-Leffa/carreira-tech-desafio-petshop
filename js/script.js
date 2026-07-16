@@ -323,7 +323,7 @@ function initContactFormSubmission(contactForm) {
         setContactFormLoadingState(contactForm, submitButton, true);
 
         try {
-            const response = await fetch('/api/contato', {
+            const response = await fetch('http://localhost:3001/api/contato', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
