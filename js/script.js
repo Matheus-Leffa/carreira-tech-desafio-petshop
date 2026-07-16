@@ -312,12 +312,26 @@ function initFormValidation() {
 function initContactFormSubmission(contactForm) {
     const submitButton = contactForm.querySelector('button[type="submit"]');
     const controls = Array.from(contactForm.querySelectorAll('.contact-form__control'));
+    const phoneInput = contactForm.querySelector('[name="phone"]') || contactForm.querySelector('#phone');
+
+    if (phoneInput) {
+        phoneInput.addEventListener('input', () => {
+            if (validatePhone(phoneInput.value)) {
+                clearContactFieldError(phoneInput);
+            }
+        });
+    }
 
     contactForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
         clearContactFormFeedback(contactForm, controls);
         clearContactStatusTimer(contactForm);
+
+        if (phoneInput && !validatePhone(phoneInput.value)) {
+            setContactFieldError(contactForm, 'phone', 'Digite um telefone celular válido com DDD. Exemplo: (49) 99999-9999.');
+            return;
+        }
 
         const payload = getContactFormPayload(contactForm);
         setContactFormLoadingState(contactForm, submitButton, true);
@@ -475,6 +489,22 @@ function clearContactFieldError(field) {
     if (errorElement) {
         errorElement.textContent = '';
     }
+}
+
+/**
+ * Valida se um número de telefone é um celular brasileiro válido.
+ * @param {string} phone 
+ * @returns {boolean}
+ */
+function validatePhone(phone) {
+    const cleanPhone = phone.replace(/\D/g, '');
+    if (cleanPhone.length !== 11) {
+        return false;
+    }
+    if (cleanPhone[2] !== '9') {
+        return false;
+    }
+    return true;
 }
 
 /**
